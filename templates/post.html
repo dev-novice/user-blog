@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1">
+    <link href="/static/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+  </head>
+  <body>
+    <div class="post">
+      <div class="post-heading">
+        <div class="post-title">
+          {{p.subject}}
+        </div>
+
+        <div class="post-date">
+          (Posted on {{p.created.strftime("%b %d, %Y")}} by {{p.getUserName()}})
+        </div>
+      </div>
+
+      <div class="post-content">
+        {{p._render_text | safe}}
+      </div>
+    </div>
+  </body>
+</html>

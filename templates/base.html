@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+  <link href="http://weloveiconfonts.com/api/?family=typicons" rel="stylesheet">
+  <script type="text/javascript">
+    /*var count =0;
+    function updatecounter(){
+        count += 1;
+
+        document.getElementById("count").innerHTML = count;
+    }*/
+    var count = 0;
+    var i = 0;
+    function updatecounter(){
+      var property = document.getElementById('likecolor');
+      if(i == 0){
+        property.style.color = "blue"
+        i =1;
+        count ++;
+        document.getElementById('count').innerHTML = count;
+      }else{
+        property.style.color = "black"
+        i = 0;
+        count --;
+        document.getElementById('count').innerHTML = count;
+
+      }
+    }
+
+    function getfocustxt(){
+
+        document.getElementById("inputbox").focus();
+    }
+  </script>
+  <title>My Blog</title>
+</head>
+
+<body>
+  <a href="/blog" class="main-title">
+    {{user.name}} Blog
+  </a>
+
+  <div class="login-area">
+    {% if user %}
+      <a class="login-link" href="/likepost">Home</a>
+      <a class="login-link" href="/blog">{{user.name}}</a>
+      (<a class="login-link" href="/logout">logout</a>)
+    {% else %}
+      <a class="login-link" href="/login">login</a>
+      |
+      <a class="login-link" href="/signup">signup</a>
+    {% endif %}
+  </div>
+
+  <div id="content">
+  {% block content %}
+  {% endblock %}
+    
+  </div>
+</body>
+
+</html>
+

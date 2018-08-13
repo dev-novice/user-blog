@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for p in users_posts %}
+
+        {% if p.getUserName() == user.name %}
+
+            <p class="share"> {{p.getUserName()}} shared </p>
+
+        {% else %}
+
+            <p class="share"> {{p.getUserName()}} -> {{user.name}} </p>
+
+        {% endif %}
+
+        <div class="post">
+            <div class="post-heading">
+                <div class="post-title">
+                    {{p.subject}}
+                </div>
+
+                <div class="post-date">
+                    (Posted on {{p.created.strftime("%b %d, %Y")}} by {{p.getUserName()}})
+                </div>
+            </div>
+
+                <div class="post-content">
+                    {{p.content | safe}}
+                </div>
+            </div>
+
+            <div class="like">
+                <a href=" " class="typicons-thumbsUp">Like</a>
+                <a onclick="getfocustxt();" href=" " class="typicons-message">Comment</a>
+            </div>
+
+            <div class="button3">  
+                {% for q in post_comments %}
+                    <div class="comment-name">
+                        {% if p.key().id() == q.post_id %}
+                            {% if q.getUserName() %}
+                                <h4>{{q.getUserName()}}:</h4>
+                            {% else %}
+                                <h4> anonymous: </h4>
+                            {% endif %}
+                    </div>
+                    <div class="comment-content">
+                        <a style="color:blue" href="/blog/{{p.key().id()}}/deletecomment/{{q.key().id()}}">delete</a> | 
+                        <a style="color:blue" href="/blog/{{p.key().id()}}/editcomment/{{q.key().id()}}">edit</a>
+
+                            {{q.comments}}
+                        {% endif %}
+                    </div>
+              {% endfor %}
+            </div>
+
+            <div class="button1">
+                <form  action="/likepost" method = "POST">
+                    <input  type="hidden" name="post_id" value="{{p.key().id()}}">
+                    <input id="inputbox" type="text" name="comments" value="{{comments}}">
+                    <div class="error">{{error}}</div>
+                    <input type="submit" name="submit" value="submit">
+                </form>
+            </div>
+
+            
+
+    {% endfor %}
+
+{% endblock %}
+
+

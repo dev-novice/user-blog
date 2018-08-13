@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {{post.render() | safe}}
+
+  <h3>Comments</h3>
+    <form action ="/blog/([0-9]+)" method ="post">
+  	  {% for comment in comments %}
+        <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
+  		  <div class="comment-name">
+          {% if post.key().id() == comment.post_id %}
+  			    {% if comment.getUserName() %}
+  				    <h4>{{comment.getUserName()}} :</h4>
+  			    {% else %}
+  				    anonymous wrote:
+  			    {% endif %}
+  		  </div>
+  		  <div class="comment-content">
+  			  {{comment.comments}}
+  			  {{comment_error}}
+
+  		  </div>
+          {% endif %}
+  	  {% endfor %}
+    </form>
+
+
+{% endblock %}
